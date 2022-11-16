@@ -3,8 +3,8 @@ services:
   web:
     build: .
     ports:
-      - "5432:5432"
-    command: python manage.py runserver 0.0.0.0:5432
+      - "8010:8010"
+    command: python manage.py runserver 0.0.0.0:8010
     volumes:
       - .:/code  
     depends_on:
