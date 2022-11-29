@@ -5,6 +5,7 @@ from customers.models import Person, Provider, Pet
 class PersonFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Person
+        exclude = ('phone', 'image_url')
 
     name = "Jhon"
     email = "Jhon@gmail.com"
