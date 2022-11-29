@@ -14,9 +14,18 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return self.name, self.email, self.phone
+
 
 class Provider (models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.person
+
+    def __repr__(self):
+        return self.person
 
 
 class Pet(models.Model):
@@ -25,3 +34,6 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
+
+    def __repr__(self):
+        return self.person, self.name
