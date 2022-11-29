@@ -1,1 +1,1 @@
-from .customers_tests import *
+from .models_tests import *
