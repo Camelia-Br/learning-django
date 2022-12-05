@@ -3,10 +3,18 @@ from .models import Person, Provider, Pet
 # Register your models here.
 
 
-class CustomersAdmin(admin.ModelAdmin):
+class PersonAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Person, CustomersAdmin)
-admin.site.register(Provider, CustomersAdmin)
-admin.site.register(Pet, CustomersAdmin)
+class ProviderAdmin(admin.ModelAdmin):
+    pass
+
+
+class PetAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Person, PersonAdmin)
+admin.site.register(Provider, ProviderAdmin)
+admin.site.register(Pet, PetAdmin)
