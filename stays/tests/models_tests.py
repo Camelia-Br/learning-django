@@ -1,22 +1,24 @@
 from django.test import TestCase
 from stays.models import Stay, Review
 from .factories import StayFactory, ReviewFactory
-from customers.tests.factories import PersonFactory, PetFactory
+from customers.tests.factories import PetFactory
 from django.core.exceptions import ValidationError
 
 
 class StayTestCase(TestCase):
+    def setUp(self):
+        self.stay = StayFactory.create()
+        self.pet = PetFactory.create()
+
     def test_create_stay(self):
-        stay = StayFactory.create()
-        pet = PetFactory.create()
-        stay.pets.add(pet)
-        stay.save()
-        stay.refresh_from_db()
-        self.assertIn(stay, Stay.objects.all())
-        self.assertIn(pet, stay.pets.all())
+        self.stay.pets.add(self.pet)
+        self.stay.save()
+        self.stay.refresh_from_db()
+        self.assertIn(self.stay, Stay.objects.all())
+        self.assertIn(self.pet, self.stay.pets.all())
 
         try:
-            stay.full_clean()
+            self.stay.full_clean()
         except ValidationError as e:
             self.assertRaises('name' in e.message_dict)
 

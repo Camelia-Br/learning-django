@@ -19,7 +19,7 @@ class Stay(models.Model):
 class Review(models.Model):
     stay = models.OneToOneField(Stay, on_delete=models.CASCADE)
     review = models.CharField(max_length=500)
-    rating = models.CharField(max_length=1)
+    rating = models.CharField(max_length=500)
 
     def __str__(self):
         return f"Review for - {self.stay} - {self.id}"
