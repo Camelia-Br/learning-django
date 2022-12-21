@@ -1,11 +1,12 @@
 from django.db import models
 from customers.models import Person, Provider, Pet
+from datetime import date
 
 
 class Stay(models.Model):
     owner = models.ForeignKey(Person, on_delete=models.CASCADE)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
-    start_date = models.DateField()
+    start_date = models.DateField(default=date.today())
     end_date = models.DateField()
     pets = models.ManyToManyField(Pet)
 
@@ -13,7 +14,7 @@ class Stay(models.Model):
         return f"Stay for - {self.owner} - {self.id}"
 
     def __repr__(self):
-        return f"Stay for - {self.owner} - {self.id}"
+        return f"Stay(id={self.id}, owner={self.owner}, provider={self.provider}, start_date={self.start_date})"
 
 
 class Review(models.Model):
