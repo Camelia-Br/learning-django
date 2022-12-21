@@ -18,7 +18,7 @@ class StayForm(ModelForm):
     def clean_end_date(self):
         now = date.today()
         chosen_date = self.cleaned_data['end_date']
-        if chosen_date and chosen_date > now:
+        if chosen_date and chosen_date < now:
             self.add_error('end_date', 'End date should be greater than start date')
         return chosen_date
 
