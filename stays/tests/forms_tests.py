@@ -51,8 +51,8 @@ class StayFormTests(TestCase):
         data = self.get_data()
         form = StayForm(data=data)
         self.assertTrue(form.is_valid())
-        form.save()
-        self.assertTrue(Stay.objects.get())
+        stay = form.save()
+        self.assertIsNotNone(stay)
 
 
 class ReviewFormTest(TestCase):
