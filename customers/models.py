@@ -16,7 +16,7 @@ class Person(models.Model):
         return f"{self.name}"
 
 
-class Provider (models.Model):
+class Provider(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -35,5 +35,3 @@ class Pet(models.Model):
 
     def __repr__(self):
         return f"{self.person}'s pet - {self.name} - {self.id}"
-
-

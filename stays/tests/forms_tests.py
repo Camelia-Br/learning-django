@@ -1,7 +1,6 @@
 from django.test import TestCase
 from stays.forms import StayForm, ReviewForm
 from customers.tests.factories import PersonFactory, ProviderFactory, PetFactory
-from stays.tests.factories import ReviewFactory
 
 
 class StayFormTests(TestCase):
@@ -19,7 +18,9 @@ class StayFormTests(TestCase):
             "provider": provider,
             "start_date": "2022-01-01",
             "end_date": "2022-02-02",
-            "pets": [pet], **kwargs}
+            "pets": [pet],
+            **kwargs,
+        }
 
     def test_owner_is_the_same_person_as_provider(self):
         owner = self.owner
@@ -48,9 +49,7 @@ class StayFormTests(TestCase):
 
 class ReviewFormTest(TestCase):
     def get_data(self, **kwargs):
-        return {
-            "review": "Hello",
-            "rating": "4", **kwargs}
+        return {"review": "Hello", "rating": "4", **kwargs}
 
     def test_rating_over_5(self):
         data = self.get_data(rating="7")

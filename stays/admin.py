@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Stay, Review
+
 # Register your models here.
 
 

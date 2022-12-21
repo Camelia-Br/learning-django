@@ -14,7 +14,9 @@ class Stay(models.Model):
         return f"Stay for - {self.owner} - {self.id}"
 
     def __repr__(self):
-        return f"Stay(id={self.id}, owner={self.owner}, provider={self.provider}, start_date={self.start_date})"
+        return (
+            f"Stay(id={self.id}, owner={self.owner}, provider={self.provider}, start_date={self.start_date})"
+        )
 
 
 class Review(models.Model):

@@ -5,17 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(default='Cami', max_length=20)),
                 ('email', models.EmailField(default='cami@gmail.com', max_length=254)),
                 ('phone', models.PositiveIntegerField(default=893929393)),
@@ -24,16 +27,32 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Provider',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('person', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='customers.person')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'person',
+                    models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='customers.person'),
+                ),
             ],
         ),
         migrations.CreateModel(
             name='Pet',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(default='Hugo', max_length=20)),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.person')),
+                (
+                    'person',
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.person'),
+                ),
             ],
         ),
     ]
