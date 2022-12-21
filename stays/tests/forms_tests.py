@@ -1,6 +1,7 @@
 from django.test import TestCase
 from stays.forms import StayForm, ReviewForm
 from customers.tests.factories import PersonFactory, ProviderFactory, PetFactory
+from stays.models import Stay
 
 
 class StayFormTests(TestCase):
@@ -45,6 +46,13 @@ class StayFormTests(TestCase):
         data = self.get_data()
         form = StayForm(data=data)
         self.assertTrue(form.is_valid())
+
+    def test_form_is_valid(self):
+        data = self.get_data()
+        form = StayForm(data=data)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.assertTrue(Stay.objects.get())
 
 
 class ReviewFormTest(TestCase):
