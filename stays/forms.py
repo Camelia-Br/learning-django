@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from datetime import date
 
 
+
 class StayForm(ModelForm):
     class Meta:
         model = Stay
@@ -17,9 +18,10 @@ class StayForm(ModelForm):
 
     def clean_end_date(self):
         now = date.today()
+        start_date = self.cleaned_data['start_date']
         chosen_date = self.cleaned_data['end_date']
-        if chosen_date and chosen_date < now:
-            self.add_error('end_date', 'End date should be greater than start date')
+        if chosen_date and chosen_date < now and chosen_date < start_date:
+            self.add_error('end_date', 'End date should be greater than start date.')
         return chosen_date
 
     def clean(self):
@@ -38,19 +40,23 @@ class StayForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['review', 'rating']
+        fields = ['stay', 'review', 'rating']
+
+    def clean_stay(self):
+        stay = self.cleaned_data.get('stay')
+        if not stay:
+            self.add_error('stay', 'Stay is required')
+        return stay
 
     def clean_review(self):
-        cleaned_data = super().clean()
-        review = cleaned_data.get('review')
+        review = self.cleaned_data.get('review')
         if review and len(review) < 1:
             self.add_error('review', 'Review is required')
-        return cleaned_data
+        return review
 
     def clean_rating(self):
-        cleaned_data = super().clean()
-        rating = cleaned_data.get("rating")
+        rating = self.cleaned_data.get("rating")
 
         if int(rating) > 5:
             self.add_error('rating', 'You can choose between 1 and 5')
-        return cleaned_data
+        return rating
