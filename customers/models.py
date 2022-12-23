@@ -1,8 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-# Create your models here.
-
 
 class Person(models.Model):
     name = models.CharField(max_length=20)
@@ -12,20 +10,20 @@ class Person(models.Model):
     image_url = models.ImageField(upload_to=None, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
     def __repr__(self):
-        return self.name, self.email, self.phone
+        return f"{self.name}"
 
 
-class Provider (models.Model):
+class Provider(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.person
+        return f"Provider for - {self.person} - {self.id}"
 
     def __repr__(self):
-        return self.person
+        return f"Provider for - {self.person} - {self.id}"
 
 
 class Pet(models.Model):
@@ -33,7 +31,7 @@ class Pet(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.name
+        return f"{self.person}'s pet - {self.name} - {self.id}"
 
     def __repr__(self):
-        return self.person, self.name
+        return f"{self.person}'s pet - {self.name} - {self.id}"

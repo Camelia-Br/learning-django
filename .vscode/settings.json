@@ -1,0 +1,12 @@
+{
+  "python.defaultInterpreterPath": "../venv/bin/python",
+  "python.pipenvPath": "../venv",
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Args": ["--rcfile=../setup.cfg"],
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "110"],
+  "[python]": {
+    "editor.formatOnSave": true
+  },
+}

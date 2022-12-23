@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('customers', '0002_person_image_url'),
     ]
@@ -29,6 +28,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='person',
             name='phone',
-            field=models.CharField(blank=True, max_length=17, validators=[django.core.validators.RegexValidator(message='Phone number must be valid', regex='^(\\+\\d{1,3})?,?\\s?\\d{8,13}')]),
+            field=models.CharField(
+                blank=True,
+                max_length=17,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message='Phone number must be valid', regex='^(\\+\\d{1,3})?,?\\s?\\d{8,13}'
+                    )
+                ],
+            ),
         ),
     ]
