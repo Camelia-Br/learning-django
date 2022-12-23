@@ -3,8 +3,8 @@ from stays.models import Stay, Review
 from customers.tests.factories import PersonFactory, ProviderFactory
 from datetime import date, timedelta
 
+
 class StayFactory(factory.django.DjangoModelFactory):
-   
     class Meta:
         model = Stay
 

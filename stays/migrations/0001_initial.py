@@ -16,18 +16,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stay',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.person')),
+                (
+                    'owner',
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.person'),
+                ),
                 ('pets', models.ManyToManyField(to='customers.Pet')),
-                ('provider', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.provider')),
+                (
+                    'provider',
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customers.provider'),
+                ),
             ],
         ),
         migrations.CreateModel(
             name='Review',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('review', models.CharField(max_length=500)),
                 ('rating', models.IntegerField()),
                 ('stay', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='stays.stay')),

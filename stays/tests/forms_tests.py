@@ -2,7 +2,6 @@ from django.test import TestCase
 from stays.forms import StayForm, ReviewForm
 from customers.tests.factories import PersonFactory, ProviderFactory, PetFactory
 from stays.tests.factories import StayFactory
-from stays.models import Stay
 from datetime import date, timedelta
 
 
@@ -63,12 +62,11 @@ class ReviewFormTest(TestCase):
         self.stay.save()
         self.stay.refresh_from_db()
 
-
     def get_data(self, **kwargs):
-        return {"stay": self.stay,"review": "Hello", "rating": 4, **kwargs}
+        return {"stay": self.stay, "review": "Hello", "rating": 4, **kwargs}
 
     def test_rating_over_5(self):
-        data = self.get_data(rating= 7)
+        data = self.get_data(rating=7)
         form = ReviewForm(data=data)
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors["rating"], ["You can choose between 1 and 5"])
@@ -77,8 +75,7 @@ class ReviewFormTest(TestCase):
         data = self.get_data()
         form = ReviewForm(data=data)
         self.assertTrue(form.is_valid())
-        
-    
+
     def test_form_is_valid(self):
         data = self.get_data()
         form = ReviewForm(data=data)

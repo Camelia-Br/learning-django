@@ -3,7 +3,6 @@ from django.forms import ModelForm
 from datetime import date
 
 
-
 class StayForm(ModelForm):
     class Meta:
         model = Stay
