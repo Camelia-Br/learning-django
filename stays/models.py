@@ -4,7 +4,7 @@ from customers.models import Person, Provider, Pet
 
 class Stay(models.Model):
     owner = models.ForeignKey(Person, on_delete=models.CASCADE)
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, related_name='stays')
     start_date = models.DateField()
     end_date = models.DateField()
     pets = models.ManyToManyField(Pet)
