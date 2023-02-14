@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from dirtyfields import DirtyFieldsMixin
 
-
-class Person(models.Model):
+class Person(DirtyFieldsMixin, models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField()
     phone_regex = RegexValidator(regex=r'^(\+\d{1,3})?,?\s?\d{8,13}', message="Phone number must be valid")

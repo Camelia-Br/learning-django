@@ -1,5 +1,6 @@
 from django.db import models
 from customers.models import Person, Provider, Pet
+from dirtyfields import DirtyFieldsMixin
 
 
 class Stay(models.Model):
@@ -18,7 +19,7 @@ class Stay(models.Model):
         )
 
 
-class Review(models.Model):
+class Review(DirtyFieldsMixin, models.Model):
     stay = models.OneToOneField(Stay, on_delete=models.CASCADE)
     review = models.CharField(max_length=500)
     rating = models.IntegerField()
