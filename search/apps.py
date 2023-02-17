@@ -6,6 +6,5 @@ class SearchConfig(AppConfig):
     name = 'search'
 
     def ready(self) -> None:
-        super().ready()
-        from . import signals
-
+        # flake8: noqa
+        import search.handlers

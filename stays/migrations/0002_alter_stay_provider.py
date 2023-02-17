@@ -15,6 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='stay',
             name='provider',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='stays', to='customers.provider'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name='stays', to='customers.provider'
+            ),
         ),
     ]

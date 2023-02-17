@@ -1,6 +1,10 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from dirtyfields import DirtyFieldsMixin
+from .signals import person_name_changed, provider_created
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Person(DirtyFieldsMixin, models.Model):
     name = models.CharField(max_length=20)
@@ -16,6 +20,13 @@ class Person(DirtyFieldsMixin, models.Model):
         return f"{self.name}"
 
 
+@receiver(post_save, sender=Person)
+def person_name_changed_signal_handler_post_save(sender, instance, **kwargs):
+    dirty_name = instance.get_dirty_fields()
+    if (hasattr(instance, 'provider')) and (dirty_name and 'name' in dirty_name):
+        person_name_changed.send(sender=sender, person=instance)
+
+
 class Provider(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
@@ -24,6 +35,12 @@ class Provider(models.Model):
 
     def __repr__(self):
         return f"Provider for - {self.person} - {self.id}"
+
+
+@receiver(post_save, sender=Provider)
+def provider_created_handler_post_save(sender, instance, created, **kwargs):
+    if created:
+        provider_created.send(sender=sender, provider=instance)
 
 
 class Pet(models.Model):

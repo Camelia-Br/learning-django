@@ -16,11 +16,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SearchScore',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('sitter_score', models.DecimalField(db_index=True, decimal_places=1, max_digits=2)),
                 ('rating_score', models.DecimalField(db_index=True, decimal_places=1, max_digits=2)),
                 ('overall_rank', models.DecimalField(db_index=True, decimal_places=1, max_digits=2)),
-                ('provider', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='search_score', to='customers.provider')),
+                (
+                    'provider',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='search_score',
+                        to='customers.provider',
+                    ),
+                ),
             ],
         ),
     ]
