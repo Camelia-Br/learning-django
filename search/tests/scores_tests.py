@@ -30,14 +30,8 @@ class SearchScoreTestCase(TestCase):
         stay = StayFactory.create(provider=self.provider)
         review = ReviewFactory.create(stay=stay)
         rating_score = compute_ratings_score(self.provider)
-        review.save()
-        review.refresh_from_db()
         self.assertEqual(rating_score, self.provider.search_score.rating_score)
 
     def test_rating_score_is_not_computed_when_review_is_missing(self):
         stay = StayFactory.create(provider=self.provider)
         self.assertEqual(self.provider.search_score.rating_score, 0)
-        
-
-   
- 
