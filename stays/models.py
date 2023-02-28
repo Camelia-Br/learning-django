@@ -1,10 +1,14 @@
 from django.db import models
 from customers.models import Person, Provider, Pet
+from dirtyfields import DirtyFieldsMixin
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .signals import review_added
 
 
 class Stay(models.Model):
     owner = models.ForeignKey(Person, on_delete=models.CASCADE)
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, related_name='stays')
     start_date = models.DateField()
     end_date = models.DateField()
     pets = models.ManyToManyField(Pet)
@@ -18,7 +22,7 @@ class Stay(models.Model):
         )
 
 
-class Review(models.Model):
+class Review(DirtyFieldsMixin, models.Model):
     stay = models.OneToOneField(Stay, on_delete=models.CASCADE)
     review = models.CharField(max_length=500)
     rating = models.IntegerField()
@@ -28,3 +32,8 @@ class Review(models.Model):
 
     def __repr__(self):
         return f"Review for - {self.stay}  - {self.id}"
+
+
+@receiver(post_save, sender=Review)
+def review_added_post_save(sender, instance, created, **kwargs):
+    review_added.send(sender=sender, provider=instance.stay.provider)

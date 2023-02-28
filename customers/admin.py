@@ -1,8 +1,6 @@
 from django.contrib import admin
 from .models import Person, Provider, Pet
 
-# Register your models here.
-
 
 class PersonAdmin(admin.ModelAdmin):
     pass
