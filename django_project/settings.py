@@ -41,7 +41,15 @@ INSTALLED_APPS = [
     'customers',
     'stays',
     'search',
+    'rest_framework',
+    'api',
 ]
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
