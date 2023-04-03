@@ -5,7 +5,6 @@ from customers.models import Provider
 from api.serializers import *
 
 
-
 class ProviderListViewSet(viewsets.ViewSet):
    
     def list(self, request):
