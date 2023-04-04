@@ -38,10 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework',
     'customers',
     'stays',
     'search',
+    'api',
 ]
+
+REST_FRAMEWORK = {'TEST_REQUEST_DEFAULT_FORMAT': 'json'}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
