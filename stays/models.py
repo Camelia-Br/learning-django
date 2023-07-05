@@ -24,7 +24,7 @@ class Stay(models.Model):
 
 class Review(DirtyFieldsMixin, models.Model):
     stay = models.OneToOneField(Stay, on_delete=models.CASCADE)
-    review = models.CharField(max_length=500)
+    review = models.CharField(max_length=5000)
     rating = models.IntegerField()
 
     def __str__(self):

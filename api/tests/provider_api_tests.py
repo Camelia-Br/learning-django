@@ -22,7 +22,6 @@ class BaseAPITest(APITestCase):
         request = self.get_request(id)
         return self.view_set.as_view({'get': 'retrieve'})(request, pk=id)
 
-
     def get_list_response(self, id=None):
         request = self.get_request(id)
         return self.view_set.as_view({'get': 'list'})(request)
@@ -52,4 +51,3 @@ class ProviderApiListTests(BaseAPITest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(list(response.data[0].values())[1], self.provider1.person.name)
         self.assertEqual(len(response.data), 3)
-     
