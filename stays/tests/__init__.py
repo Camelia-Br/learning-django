@@ -1,4 +1,4 @@
 from .models_tests import StayTestCase, ReviewTestCase
-from .recoveryimport_command_tests import RecoveryImportTestCase
+from .recoveryimport_command_tests import CommandTestCase
 
-__all__ = ["StayTestCase", "ReviewTestCase", "RecoveryImportTestCase"]
+__all__ = ["StayTestCase", "ReviewTestCase", "CommandTestCase"]

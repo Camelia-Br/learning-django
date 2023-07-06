@@ -5,6 +5,7 @@ from customers.models import Person, Provider, Pet
 from stays.models import Stay, Review
 import os
 
+
 def get_or_create_pets(owner, pet_names):
     pets_list = []
     for name in pet_names.split("|"):
@@ -12,14 +13,18 @@ def get_or_create_pets(owner, pet_names):
         pets_list.append(pet)
     return pets_list
 
+
 def get_or_create_stays(owner, provider, start_date, end_date, pets):
-    stay, _ = Stay.objects.get_or_create(owner=owner, provider=provider, start_date=start_date, end_date=end_date)
+    stay, _ = Stay.objects.get_or_create(
+        owner=owner, provider=provider, start_date=start_date, end_date=end_date
+    )
     stay.pets.add(*pets)
     return stay
 
+
 class Command(BaseCommand):
     help = 'New Person, Provider, Pet, Stay and Review are added to database'
-  
+
     def add_arguments(self, parser):
         parser.add_argument('csv_file', nargs='+', type=str)
 
@@ -33,45 +38,48 @@ class Command(BaseCommand):
             dataReader = csv.DictReader(open(csv_file))
             for row in dataReader:
                 try:
-                    self.get_data(row)
+                    self.get_or_create_data(row)
                     imported_rows += 1
                 except Exception as e:
                     rows_with_errors += 1
                     self.stdout.write(self.style.ERROR(e))
-                    continue
             if imported_rows == 0:
                 self.stdout.write(self.style.WARNING("WARNING - Empty file"))
             elif rows_with_errors != 0:
-                self.stdout.write(
-                self.style.WARNING(
-                    f"The imported file contains {rows_with_errors} errors"
-                )
-            )
+                self.stdout.write(self.style.WARNING(f"The imported file contains {rows_with_errors} errors"))
         else:
-            self.stdout.write(
-                self.style.SUCCESS("The command has been executed successfully!")
-                )
- 
+            self.stdout.write(self.style.SUCCESS("The command has been executed successfully!"))
+
     @transaction.atomic
-    def get_data(self, row):
-        sitter, _ = Person.objects.get_or_create(email=row.get("sitter_email"), defaults={
+    def get_or_create_data(self, row):
+        sitter, _ = Person.objects.get_or_create(
+            email=row.get("sitter_email"),
+            defaults={
                 "name": row.get("sitter"),
                 "phone": row.get("sitter_phone_number"),
                 "image_url": row.get("sitter_image"),
-            },)
-     
-        owner, _ = Person.objects.get_or_create(email=row.get("owner_email"), defaults={
+            },
+        )
+
+        owner, _ = Person.objects.get_or_create(
+            email=row.get("owner_email"),
+            defaults={
                 "name": row.get("owner"),
                 "phone": row.get("owner_phone_number"),
                 "image_url": row.get("owner_image"),
-            },)
- 
-        provider, _ = Provider.objects.get_or_create(person=sitter)
-     
-        pets = get_or_create_pets(owner=owner, pet_names=row.get("dogs"))
-     
-        stays = get_or_create_stays(owner=owner, provider=provider, start_date=row.get("start_date"), end_date=row.get("start_date"), pets=pets)
-   
-        review, _ = Review.objects.get_or_create(stay=stays, review=row.get("text"), rating=row.get("rating"))
-   
+            },
+        )
 
+        provider, _ = Provider.objects.get_or_create(person=sitter)
+
+        pets = get_or_create_pets(owner=owner, pet_names=row.get("dogs"))
+
+        stays = get_or_create_stays(
+            owner=owner,
+            provider=provider,
+            start_date=row.get("start_date"),
+            end_date=row.get("start_date"),
+            pets=pets,
+        )
+
+        review, _ = Review.objects.get_or_create(stay=stays, review=row.get("text"), rating=row.get("rating"))
