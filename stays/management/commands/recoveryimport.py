@@ -39,14 +39,14 @@ class Command(BaseCommand):
                     rows_with_errors += 1
                     self.stdout.write(self.style.ERROR(e))
                     continue
-                if imported_rows == 0:
-                    self.stdout.write(self.style.WARNING("WARNING - Empty file"))
-                elif rows_with_errors != 0:
-                    self.stdout.write(
-                    self.style.WARNING(
-                        f"The imported file contains {rows_with_errors} errors"
-                    )
+            if imported_rows == 0:
+                self.stdout.write(self.style.WARNING("WARNING - Empty file"))
+            elif rows_with_errors != 0:
+                self.stdout.write(
+                self.style.WARNING(
+                    f"The imported file contains {rows_with_errors} errors"
                 )
+            )
         else:
             self.stdout.write(
                 self.style.SUCCESS("The command has been executed successfully!")
