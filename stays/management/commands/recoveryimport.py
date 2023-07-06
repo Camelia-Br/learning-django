@@ -26,8 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         imported_rows = 0
         rows_with_errors = 0
-
-        if not os.path.isfile(options['csv_file']):
+        if not os.path.isfile(options['csv_file'][0]):
             raise CommandError(self.style.ERROR("Please enter a valid path"))
 
         for csv_file in options['csv_file']:
@@ -48,9 +47,9 @@ class Command(BaseCommand):
                         f"The imported file contains {rows_with_errors} errors"
                     )
                 )
-            else:
-                self.stdout.write(
-                    self.style.SUCCESS("The command has been executed successfully!")
+        else:
+            self.stdout.write(
+                self.style.SUCCESS("The command has been executed successfully!")
                 )
  
     @transaction.atomic
