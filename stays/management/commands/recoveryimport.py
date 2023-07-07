@@ -1,9 +1,11 @@
-from django.core.management.base import BaseCommand, CommandError
 import csv
-from django.db import transaction
-from customers.models import Person, Provider, Pet
-from stays.models import Stay, Review
 import os
+
+from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
+
+from customers.models import Person, Pet, Provider
+from stays.models import Review, Stay
 
 
 def get_or_create_pets(owner, pet_names):

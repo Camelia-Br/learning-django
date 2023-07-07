@@ -1,6 +1,8 @@
-from .models import Stay, Review
-from django.forms import ModelForm
 from datetime import date
+
+from django.forms import ModelForm
+
+from .models import Review, Stay
 
 
 class StayForm(ModelForm):

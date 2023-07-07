@@ -1,7 +1,9 @@
-from django.test import TestCase
-from customers.models import Person
-from django.core.management import call_command
 from io import StringIO
+
+from django.core.management import call_command
+from django.test import TestCase
+
+from customers.models import Person
 
 
 class CommandTestCase(TestCase):

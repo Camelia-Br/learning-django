@@ -1,9 +1,10 @@
-from django.db import models
-from django.core.validators import RegexValidator
 from dirtyfields import DirtyFieldsMixin
-from .signals import person_name_changed, provider_created
+from django.core.validators import RegexValidator
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from .signals import person_name_changed, provider_created
 
 
 class Person(DirtyFieldsMixin, models.Model):

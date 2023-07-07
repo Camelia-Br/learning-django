@@ -1,9 +1,10 @@
 from django.dispatch import receiver
-from customers.signals import provider_created
-from .models import SearchScore
-from .scoring import compute_sitter_score, compute_ratings_score
-from customers.signals import person_name_changed
+
+from customers.signals import person_name_changed, provider_created
 from stays.signals import review_added
+
+from .models import SearchScore
+from .scoring import compute_ratings_score, compute_sitter_score
 
 
 @receiver(provider_created)

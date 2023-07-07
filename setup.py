@@ -1,7 +1,8 @@
-from setuptools import setup
 import distutils.cmd
 import subprocess
 from typing import List
+
+from setuptools import setup
 
 
 def create_command(text: str, commands: List[List[str]]):

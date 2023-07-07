@@ -1,4 +1,5 @@
 from django.db import models
+
 from customers.models import Provider
 
 from .scoring import compute_overall_rank

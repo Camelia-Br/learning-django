@@ -1,6 +1,7 @@
 import factory
-from search.models import SearchScore
+
 from customers.tests.factories import ProviderFactory
+from search.models import SearchScore
 
 
 class SearchScoreFactory(factory.django.DjangoModelFactory):

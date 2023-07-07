@@ -1,11 +1,12 @@
+from django.http.response import Http404
+from django.test import RequestFactory
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from api.views import ProviderListViewSet
 from customers.models import Provider
 from customers.tests.factories import ProviderFactory
-from api.views import ProviderListViewSet
-from django.http.response import Http404
-from django.test import RequestFactory
 
 
 class BaseAPITest(APITestCase):

@@ -1,7 +1,9 @@
-from django.test import TestCase
-from customers.models import Person, Provider, Pet
-from .factories import PersonFactory, ProviderFactory, PetFactory
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from customers.models import Person, Pet, Provider
+
+from .factories import PersonFactory, PetFactory, ProviderFactory
 
 
 class PersonTestCase(TestCase):

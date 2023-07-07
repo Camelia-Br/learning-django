@@ -1,8 +1,10 @@
-from django.db import models
-from customers.models import Person, Provider, Pet
 from dirtyfields import DirtyFieldsMixin
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from customers.models import Person, Pet, Provider
+
 from .signals import review_added
 
 
