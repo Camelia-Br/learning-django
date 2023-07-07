@@ -1,8 +1,11 @@
-from django.test import TestCase
-from stays.forms import StayForm, ReviewForm
-from customers.tests.factories import PersonFactory, ProviderFactory, PetFactory
-from stays.tests.factories import StayFactory
 from datetime import date, timedelta
+
+from django.test import TestCase
+
+from customers.tests.factories import (PersonFactory, PetFactory,
+                                       ProviderFactory)
+from stays.forms import ReviewForm, StayForm
+from stays.tests.factories import StayFactory
 
 
 class StayFormTests(TestCase):

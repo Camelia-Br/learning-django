@@ -1,8 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from customers.models import Provider
+
 from api.serializers import *
+from customers.models import Provider
 
 
 class ProviderListViewSet(viewsets.ReadOnlyModelViewSet):

@@ -1,7 +1,9 @@
-from django.test import TestCase
-from customers.tests.factories import ProviderFactory, PersonFactory
 from unittest.mock import patch
-from stays.tests.factories import StayFactory, ReviewFactory
+
+from django.test import TestCase
+
+from customers.tests.factories import PersonFactory, ProviderFactory
+from stays.tests.factories import ReviewFactory, StayFactory
 
 
 class ScoringTestCase(TestCase):

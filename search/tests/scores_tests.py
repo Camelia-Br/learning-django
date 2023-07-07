@@ -1,10 +1,13 @@
-from django.test import TestCase
-from search.models import SearchScore
-from customers.tests.factories import ProviderFactory, PersonFactory
-from stays.tests.factories import StayFactory, ReviewFactory
 from unittest.mock import patch
-from ..scoring import compute_sitter_score, compute_ratings_score
+
+from django.test import TestCase
+
 from customers.models import Person
+from customers.tests.factories import PersonFactory, ProviderFactory
+from search.models import SearchScore
+from stays.tests.factories import ReviewFactory, StayFactory
+
+from ..scoring import compute_ratings_score, compute_sitter_score
 
 
 class SearchScoreTestCase(TestCase):

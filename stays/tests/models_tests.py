@@ -1,8 +1,10 @@
-from django.test import TestCase
-from stays.models import Stay, Review
-from .factories import StayFactory, ReviewFactory
-from customers.tests.factories import PetFactory
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from customers.tests.factories import PetFactory
+from stays.models import Review, Stay
+
+from .factories import ReviewFactory, StayFactory
 
 
 class StayTestCase(TestCase):

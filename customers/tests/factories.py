@@ -1,5 +1,6 @@
 import factory
-from customers.models import Person, Provider, Pet
+
+from customers.models import Person, Pet, Provider
 
 
 class PersonFactory(factory.django.DjangoModelFactory):

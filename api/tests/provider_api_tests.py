@@ -1,11 +1,12 @@
+from django.http.response import Http404
+from django.test import RequestFactory
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from api.views import ProviderListViewSet
 from customers.models import Provider
 from customers.tests.factories import ProviderFactory
-from api.views import ProviderListViewSet
-from django.http.response import Http404
-from django.test import RequestFactory
 
 
 class BaseAPITest(APITestCase):
@@ -21,7 +22,6 @@ class BaseAPITest(APITestCase):
     def get_retrieve_response(self, id=None):
         request = self.get_request(id)
         return self.view_set.as_view({'get': 'retrieve'})(request, pk=id)
-
 
     def get_list_response(self, id=None):
         request = self.get_request(id)
@@ -52,4 +52,3 @@ class ProviderApiListTests(BaseAPITest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(list(response.data[0].values())[1], self.provider1.person.name)
         self.assertEqual(len(response.data), 3)
-     

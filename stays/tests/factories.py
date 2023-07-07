@@ -1,7 +1,9 @@
-import factory
-from stays.models import Stay, Review
-from customers.tests.factories import PersonFactory, ProviderFactory
 from datetime import date, timedelta
+
+import factory
+
+from customers.tests.factories import PersonFactory, ProviderFactory
+from stays.models import Review, Stay
 
 
 class StayFactory(factory.django.DjangoModelFactory):

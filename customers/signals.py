@@ -1,6 +1,5 @@
 from django.dispatch import Signal
 
-
 person_name_changed = Signal(
     providing_args=[
         'person',
