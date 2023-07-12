@@ -3,18 +3,24 @@ from django.contrib import admin
 from .models import Person, Pet, Provider
 
 
+class ProviderInline(admin.TabularInline):
+    model =  Provider
+
+    readonly_fields = (
+        "sitter_score",
+        "ratings_score",
+        "overall_rank",
+    )
+
+class PetInline(admin.TabularInline):
+    model = Pet
+
 class PersonAdmin(admin.ModelAdmin):
-    pass
-
-
-class ProviderAdmin(admin.ModelAdmin):
-    pass
-
-
-class PetAdmin(admin.ModelAdmin):
-    pass
+    inlines = [
+        ProviderInline,
+        PetInline,
+    ]
 
 
 admin.site.register(Person, PersonAdmin)
-admin.site.register(Provider, ProviderAdmin)
-admin.site.register(Pet, PetAdmin)
+
