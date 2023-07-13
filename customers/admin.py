@@ -36,13 +36,14 @@ class PersonAdmin(admin.ModelAdmin):
         PetInline,
     ]
     def get_inline_instances(self, request, obj):
-        inline_instances = []
-        ins = isinstance(Provider, ProviderInline)
-        if hasattr(ins, "provider"):
-            inline_instances.append(ins)
-
-        return inline_instances
-     
-
-
+        inline_instances =  super().get_inline_instances(request, obj)
+        return [
+            inline
+            for inline in inline_instances
+            if not (
+                obj
+                and not hasattr(obj, "provider")
+                and isinstance(inline, ProviderInline)
+            )
+        ]
 admin.site.register(Person, PersonAdmin)
