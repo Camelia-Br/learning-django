@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
 from django.http.request import HttpRequest
@@ -27,6 +27,7 @@ class ProviderInline(admin.TabularInline):
     def has_delete_permission(self, request, obj=None):
         return False
     
+    
 class PetInline(admin.TabularInline):
     model = Pet
 
@@ -46,4 +47,5 @@ class PersonAdmin(admin.ModelAdmin):
                 and isinstance(inline, ProviderInline)
             )
         ]
+    
 admin.site.register(Person, PersonAdmin)
