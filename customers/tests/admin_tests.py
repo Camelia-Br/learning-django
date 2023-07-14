@@ -34,11 +34,18 @@ class PersonAdminTestCase(TestCase):
      def setUpTestData(cls):
         cls.request = RequestFactory().get("/admin")
         cls.request.user = User.objects.create_superuser(
-            "admin1234", "admin@test.com", "admin1234"
+            "hshjsfh@gmail.com", "djhsdsdh@gmail.com", "dkskdhsdjh@gmail.com"
         )
         cls.person_admin = PersonAdmin(Person, admin.site)
 
 
-     def test_get_inline_instances_for_person_without_provider(self):
+     def test_inline_instances_when_person_is_owner(self):
         self.assertIsInstance(self.inline_instances[0], PetInline)
      
+     def test_inline_instances_when_person_is_provider(self):
+        self.provider = ProviderFactory.create(person=self.person)
+        self.inline_instances = self.person_admin.get_inline_instances(
+            self.request, self.provider
+        )
+        self.assertIsInstance(self.inline_instances[0], ProviderInline)
+        self.assertIsInstance(self.inline_instances[1], PetInline)

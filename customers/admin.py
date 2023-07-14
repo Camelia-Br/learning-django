@@ -43,7 +43,7 @@ class PersonAdmin(admin.ModelAdmin):
             for inline in inline_instances
             if not (
                 obj
-                and not hasattr(obj, "provider")
+                and not hasattr(obj, "person")
                 and isinstance(inline, ProviderInline)
             )
         ]
