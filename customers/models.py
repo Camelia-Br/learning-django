@@ -19,6 +19,11 @@ class Person(DirtyFieldsMixin, models.Model):
 
     def __repr__(self):
         return f"{self.name}"
+    
+     
+    class Meta:
+        verbose_name_plural="People"
+
 
 
 @receiver(post_save, sender=Person)
@@ -32,10 +37,10 @@ class Provider(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Provider for - {self.person} - {self.id}"
+        return f"Provider for - {self.person.name} - {self.id}"
 
     def __repr__(self):
-        return f"Provider for - {self.person} - {self.id}"
+        return f"Provider for - {self.person.name} - {self.id}"
 
 
 @receiver(post_save, sender=Provider)
@@ -49,7 +54,7 @@ class Pet(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.person}'s pet - {self.name} - {self.id}"
+        return f"{self.name}"
 
     def __repr__(self):
         return f"{self.person}'s pet - {self.name} - {self.id}"
