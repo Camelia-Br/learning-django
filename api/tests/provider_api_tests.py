@@ -13,10 +13,9 @@ class BaseAPITest(APITestCase):
     def setUp(self):
         self.request_factory = RequestFactory()
         self.view_set = ProviderListViewSet
-        self.base_url = '/api/providers/'
 
     def get_request(self, id=None):
-        request = self.request_factory.get(f'{self.base_url}{id}')
+        request = self.request_factory.get("/api/providers/", {"average_rating_min":0, "average_rating_max":5})
         return request
 
     def get_retrieve_response(self, id=None):
@@ -52,3 +51,39 @@ class ProviderApiListTests(BaseAPITest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(list(response.data[0].values())[1], self.provider1.person.name)
         self.assertEqual(len(response.data), 3)
+
+
+class ProviderFilteringTestCase(BaseAPITest):
+    def setUp(self):
+        super().setUp()
+        self.provider1 = ProviderFactory.create()
+        self.provider2 = ProviderFactory.create()
+        self.provider3 = ProviderFactory.create()
+      
+    def test_when_parameters_are_correct(self):
+       request = self.request_factory.get("/api/providers/", {"average_rating_min":0, "average_rating_max":5})
+       response = self.view_set.as_view({'get': 'list'})(request)
+
+       self.assertEqual(response.status_code, status.HTTP_200_OK)
+       self.assertEqual(len(response.data), 3)
+
+    def test_when_min_is_greater_than_max(self):
+        with self.assertRaises(ValueError) as e:
+            self.client.get(
+                "/api/providers/", {"average_rating_min":5, "average_rating_max":1}
+            )
+        self.assertEqual(
+            "The average_rating_min parameter should be smaller than average_rating_max",
+            str(e.exception),
+        )
+
+    def test_type_is_not_int(self):
+        with self.assertRaises(ValueError) as e:
+            self.client.get(
+                "/api/providers/", {"average_rating_min":0, "average_rating_max":9}
+            )
+        self.assertEqual(
+            "The average_rating_min parameter should begreater than 0 and average_rating_max parameter should be smaller than 5",
+            str(e.exception),
+        )
+
