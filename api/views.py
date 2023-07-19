@@ -13,18 +13,15 @@ class ProviderListViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        average_rating_min = self.request.query_params.get("average_rating_min", 0)
-        average_rating_max = self.request.query_params.get("average_rating_max", 5)
-
-        average_rating_min = int(average_rating_min)
-        average_rating_max = int(average_rating_max)
+        average_rating_min = float(self.request.query_params.get("average_rating_min", 1.5))
+        average_rating_max = float(self.request.query_params.get("average_rating_max", 4.3))
 
         if average_rating_min > average_rating_max:
             raise ValueError("The average_rating_min parameter should be smaller than average_rating_max")
 
         if average_rating_min < 0 or average_rating_max > 5:
             raise ValueError(
-                "The average_rating_min parameter should begreater than 0 and average_rating_max parameter should be smaller than 5"
+                "The average_rating_min parameter should be greater than 0 and average_rating_max parameter should be smaller than 5"
             )
 
         queryset = queryset.filter(
