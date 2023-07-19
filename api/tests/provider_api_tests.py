@@ -17,17 +17,17 @@ class BaseAPITest(APITestCase):
     def get_request_factory(self, url, average_ratings={}, id=None):
         request = self.request_factory.get(url, average_ratings)
         return request
-    
+
     def get_request_client(self, url, average_ratings={}):
         request = self.client.get(url, average_ratings)
         return request
 
     def get_retrieve_response(self, url, average_ratings={}, id=None):
-        request = self.get_request_factory(url, average_ratings ,id)
+        request = self.get_request_factory(url, average_ratings, id)
         return self.view_set.as_view({'get': 'retrieve'})(request, pk=id)
 
     def get_list_response(self, url, average_ratings={}, id=None):
-        request = self.get_request_factory(url, average_ratings ,id)
+        request = self.get_request_factory(url, average_ratings, id)
         return self.view_set.as_view({'get': 'list'})(request)
 
 
@@ -40,12 +40,12 @@ class ProviderAPITestCase(BaseAPITest):
 
     def test_retrieve_provider(self):
         self.provider = ProviderFactory.create()
-        response = self.get_retrieve_response(self.url,self.average_ratings , self.provider.person.id)
+        response = self.get_retrieve_response(self.url, self.average_ratings, self.provider.person.id)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], self.provider.person.name)
 
     def test_return_404_when_id_does_not_exists(self):
-        response = self.get_retrieve_response(self.url, self.average_ratings,'0')
+        response = self.get_retrieve_response(self.url, self.average_ratings, '0')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_get_list_of_providers(self):
