@@ -75,6 +75,30 @@ class ProviderListAPITestCase(BaseAPITest):
         self.assertEqual(list(response.data[0].values())[1], self.provider1.person.name)
         self.assertEqual(len(response.data), 3)
 
+    def test_get_list_of_providers_without_query_params(self):
+        self.provider1 = ProviderFactory.create()
+        self.provider2 = ProviderFactory.create()
+        self.provider3 = ProviderFactory.create()
+        self.provider4 = ProviderFactory.create()
+
+        with self.override_querry_params({}):
+            response = self.get()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 4)
+
+    def test_get_list_of_providers_average_rating_min(self):
+        with self.override_querry_params({"average_rating_min":2}):
+            response = self.get()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_list_of_providers_average_rating_max(self):
+        with self.override_querry_params({"average_rating_max":5}):
+            response = self.get()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_when_min_is_greater_than_max(self):
         with self.assertRaises(ValueError) as e:
             with self.override_querry_params({"average_rating_min": 5, "average_rating_max": 1}):
