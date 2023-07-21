@@ -1,22 +1,17 @@
 import mock
 import abc
 
-from django.test import RequestFactory
 from django.urls import reverse
 from django.utils.http import urlencode
 from rest_framework import status
 from rest_framework.test import APITestCase
-
-from api.views import ProviderListViewSet
 from customers.tests.factories import ProviderFactory
 
 
 class BaseAPITest(APITestCase):
     __abstract__ = True
-    
+
     def setUp(self):
-        self.request_factory = RequestFactory()
-        self.view_set = ProviderListViewSet
         self.endpoint = None
 
     @abc.abstractmethod
@@ -24,7 +19,7 @@ class BaseAPITest(APITestCase):
         pass
 
     def get_view_kwargs(self, **kwargs):
-        return kwargs 
+        return kwargs
 
     def override_querry_params(self, querry_params):
         return mock.patch.object(self, "get_querry_params", return_value=querry_params)
@@ -37,23 +32,21 @@ class BaseAPITest(APITestCase):
                 kwargs=self.get_view_kwargs(**kwargs),
             )
         else:
-            raise NotImplementedError(
-                "Please implement get_base_url() or define endpoint"
-            )
+            raise NotImplementedError("Please implement get_base_url() or define endpoint")
 
         return url
-    
+
     def get_url(self, *args, **kwargs):
         url = self.get_base_url(*args, **kwargs)
 
         querry_params = self.get_querry_params()
         if querry_params:
             url = '{}?{}'.format(url, urlencode(self.get_querry_params()))
-        
+
         return url
 
     def get(self, *args, **kwargs):
-        url = self.get_url(*args,**kwargs)
+        url = self.get_url(*args, **kwargs)
         return self.client.get(url)
 
 
@@ -88,13 +81,13 @@ class ProviderListAPITestCase(BaseAPITest):
         self.assertEqual(len(response.data), 4)
 
     def test_get_list_of_providers_average_rating_min(self):
-        with self.override_querry_params({"average_rating_min":2}):
+        with self.override_querry_params({"average_rating_min": 2}):
             response = self.get()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_list_of_providers_average_rating_max(self):
-        with self.override_querry_params({"average_rating_max":5}):
+        with self.override_querry_params({"average_rating_max": 5}):
             response = self.get()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -117,6 +110,7 @@ class ProviderListAPITestCase(BaseAPITest):
                 str(e.exception),
             )
 
+
 class ProviderDetailAPITestCase(BaseAPITest):
     def setUp(self):
         super().setUp()
@@ -124,7 +118,7 @@ class ProviderDetailAPITestCase(BaseAPITest):
         self.provider = ProviderFactory.create()
 
     def get_view_kwargs(self, **kwargs):
-        return dict({"pk":self.provider.id}, **kwargs)
+        return dict({"pk": self.provider.id}, **kwargs)
 
     def test_provider(self):
         response = self.get()
