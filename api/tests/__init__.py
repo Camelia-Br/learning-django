@@ -1,3 +1,3 @@
-from .provider_api_tests import ProviderAPITestCase
+from .provider_api_tests import ProviderListAPITestCase, ProviderDetailAPITestCase
 
-__all__ = ["ProviderAPITestCase"]
+__all__ = ["ProviderListAPITestCase", "ProviderDetailAPITestCase"]
