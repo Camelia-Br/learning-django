@@ -19,11 +19,9 @@ class Person(DirtyFieldsMixin, models.Model):
 
     def __repr__(self):
         return f"{self.name}"
-    
-     
-    class Meta:
-        verbose_name_plural="People"
 
+    class Meta:
+        verbose_name_plural = "People"
 
 
 @receiver(post_save, sender=Person)

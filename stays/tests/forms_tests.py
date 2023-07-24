@@ -2,8 +2,7 @@ from datetime import date, timedelta
 
 from django.test import TestCase
 
-from customers.tests.factories import (PersonFactory, PetFactory,
-                                       ProviderFactory)
+from customers.tests.factories import PersonFactory, PetFactory, ProviderFactory
 from stays.forms import ReviewForm, StayForm
 from stays.tests.factories import StayFactory
 
